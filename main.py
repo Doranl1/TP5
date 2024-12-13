@@ -14,7 +14,7 @@ def draw():
 
     arcade.draw_ellipse_filled(350, 225, 115, 75, YELLOW)
     arcade.draw_circle_filled(382.5, 240, 5, arcade.color.BLACK)
-
+    arcade.draw_triangle_filled(350, 225, 275, 180, 275, 270, YELLOW)
 
 
 
