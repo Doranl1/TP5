@@ -22,6 +22,7 @@ def draw():
 
 
 
+
 def main():
     arcade.open_window(700, 450, "art")
     arcade.set_background_color(arcade.color.BLUEBERRY)
