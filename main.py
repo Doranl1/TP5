@@ -9,6 +9,8 @@ import random
 
 
 YELLOW = (204, 153, 0)
+BLUE = (175, 199, 237)
+GREEN = (115, 240, 130)
 
 window_width = 700
 window_height = 450
@@ -17,6 +19,8 @@ Left_tank = window_width - 600
 Right_tank = window_width - 100
 Bottom_tank = window_height - 350
 Top_tank = window_height - 50
+
+Leaf_height = Bottom_tank + 120
 
 rock_point = [
     (Right_tank - 190, Bottom_tank + 20),
@@ -50,11 +54,20 @@ def draw():
     arcade.draw_circle_filled(X_Fish + 20, Y_Fish + 10, 3.5, arcade.color.BLACK)
     arcade.draw_triangle_filled(X_Fish, Y_Fish, X_Fish - 50, Y_Fish + 30, X_Fish - 50, Y_Fish - 30, YELLOW)
 
+    arcade.draw_circle_filled(X_Fish + 50, Y_Fish + 20, 7, BLUE)
+    arcade.draw_circle_filled(X_Fish + 35, Y_Fish + 35, 7, BLUE)
+    arcade.draw_circle_filled(X_Fish + 50, Y_Fish + 50, 7, BLUE)
+
+    arcade.draw_line(Left_tank + 70, Bottom_tank + 30, Left_tank + 70, Bottom_tank + 170, GREEN, 10)
+    arcade.draw_circle_filled(Left_tank + 70, Bottom_tank + 30, 5, GREEN)
+    arcade.draw_circle_filled(Left_tank + 70, Bottom_tank + 170, 5, GREEN)
+    for i in range (0, 10):
+        arcade.draw_arc_outline(Left_tank + 70, Leaf_height, 100, 100, GREEN, 35, 145, 10)
+        Leaf_height = Leaf_height - 20
+
+
+
     arcade.draw_polygon_filled(rock_point, arcade.color.BLACK)
-
-
-
-
 
 
 def main():
