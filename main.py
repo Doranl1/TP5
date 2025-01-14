@@ -67,9 +67,9 @@ class FishTank(arcade.Window):
             self.x_fish, self.y_fish, self.x_fish - 50, self.y_fish + 30, self.x_fish - 50, self.y_fish - 30, YELLOW
         )
 
-        arcade.draw_text("O", self.x_fish + 40, self.y_fish + 15, BLUE, 20, )
-        arcade.draw_text("O", self.x_fish + 30, self.y_fish + 35, BLUE, 20, )
-        arcade.draw_text("O", self.x_fish + 50, self.y_fish + 50, BLUE, 20, )
+        arcade.draw_circle_outline(self.x_fish + 50, self.y_fish + 15, 7, BLUE, 2)
+        arcade.draw_circle_outline(self.x_fish + 30, self.y_fish + 35, 7, BLUE, 2)
+        arcade.draw_circle_outline(self.x_fish + 50, self.y_fish + 50, 7, BLUE, 2)
 
         arcade.draw_line(
             self.left_tank + 70, self.bottom_tank + 30, self.left_tank + 70, self.bottom_tank + 170, GREEN, 10
@@ -95,8 +95,7 @@ class FishTank(arcade.Window):
 
 
 def main():
-    draw = FishTank()
-    # draw.on_draw()
+    FishTank()
 
     arcade.run()
 
