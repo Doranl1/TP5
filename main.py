@@ -91,7 +91,7 @@ class FishTank(arcade.Window):
             self.rock_point, arcade.color.BLACK
         )
 
-        arcade.draw_text("poisson", self.window_width / 2, 60 , BLUE, 20)
+        arcade.draw_text("poisson", self.window_width / 2 - 50, self.window_height - 35, BLUE, 20)
 
 
 def main():
