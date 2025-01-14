@@ -43,8 +43,9 @@ class FishTank(arcade.Window):
             (self.right_tank - 30, self.bottom_tank + 20),
         ]
 
-        self.x_fish = self.window_width - 175
-        self.y_fish = self.window_height - 125
+        self.x_fish = random.randint(self.window_width - 275, self.window_width - 175)
+        self.y_fish = random.randint(self.window_height - 175, self.window_height - 125)
+
 
     def on_draw(self):
 
@@ -92,6 +93,12 @@ class FishTank(arcade.Window):
         )
 
         arcade.draw_text("poisson", self.window_width / 2 - 50, self.window_height - 35, BLUE, 20)
+
+    def on_update(self, delta_time: float):
+
+        self.go_x_fish = random.randint(self.window_width - 275, self.window_width - 175)
+        self.go_y_fish = random.randint(self.window_height - 175, self.window_height - 125)
+
 
 
 def main():
