@@ -44,16 +44,19 @@ class FishTank(arcade.Window):
             (self.right_tank - 30, self.bottom_tank + 20),
         ]
 
-        self.x_fish = random.randint(self.window_width - 275, self.window_width - 175)
-        self.y_fish = random.randint(self.window_height - 175, self.window_height - 125)
+        self.x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
+        self.y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
 
-        self.go_x_fish = self.x_fish
-        self.go_y_fish = self.y_fish
+        self.go_x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
+        self.go_y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
 
-        self.d_x = 0
-        self.d_y = 0
+        self.difference_x = 0
+        self.difference_y = 0
         self.distance = 0
 
+        self.x_check = 0
+
+        self.change = 1
     def on_draw(self):
 
         arcade.set_background_color(arcade.color.WHITE)
@@ -65,19 +68,9 @@ class FishTank(arcade.Window):
             self.left_tank, self.right_tank, self.bottom_tank, self.top_tank, arcade.color.BLACK, 5
         )
 
-        arcade.draw_ellipse_filled(
-            self.x_fish, self.y_fish, 75, 45, YELLOW
-        )
-        arcade.draw_circle_filled(
-            self.x_fish + 20, self.y_fish + 10, 3.5, arcade.color.BLACK
-        )
-        arcade.draw_triangle_filled(
-            self.x_fish, self.y_fish, self.x_fish - 50, self.y_fish + 30, self.x_fish - 50, self.y_fish - 30, YELLOW
-        )
-
-        arcade.draw_circle_outline(self.x_fish + 50, self.y_fish + 15, 7, BLUE, 2)
-        arcade.draw_circle_outline(self.x_fish + 30, self.y_fish + 35, 7, BLUE, 2)
-        arcade.draw_circle_outline(self.x_fish + 50, self.y_fish + 50, 7, BLUE, 2)
+        # arcade.draw_circle_outline(self.x_fish + 50, self.y_fish + 15, 7, BLUE, 2)
+        # arcade.draw_circle_outline(self.x_fish + 30, self.y_fish + 35, 7, BLUE, 2)
+        # arcade.draw_circle_outline(self.x_fish + 50, self.y_fish + 50, 7, BLUE, 2)
 
         arcade.draw_line(
             self.left_tank + 70, self.bottom_tank + 30, self.left_tank + 70, self.bottom_tank + 170, GREEN, 10
@@ -101,15 +94,45 @@ class FishTank(arcade.Window):
 
         arcade.draw_text("poisson", self.window_width / 2 - 50, self.window_height - 35, BLUE, 20)
 
+        arcade.draw_ellipse_filled(
+            self.x_fish, self.y_fish, 75, 45, YELLOW
+        )
+        arcade.draw_circle_filled(
+            self.x_fish + 20 * self.change, self.y_fish + 10, 3.5, arcade.color.BLACK
+        )
+        arcade.draw_triangle_filled(
+            self.x_fish, self.y_fish,
+            self.x_fish - 50 * self.change,
+            self.y_fish + 30 * self.change,
+            self.x_fish - 50 * self.change, self.y_fish - 30 * self.change,
+            YELLOW
+        )
+
     def on_update(self, delta_time: float):
 
-        self.go_x_fish = random.randint(self.window_width - 275, self.window_width - 175)
-        self.go_y_fish = random.randint(self.window_height - 175, self.window_height - 125)
-
         if self.x_fish != self.go_x_fish and self.y_fish != self.go_y_fish:
-            self.d_x = self.go_x_fish - self.x_fish
-            self.d_y = self.go_y_fish - self.y_fish
-            self.distance = math.sqrt(self.d_x ** 2 + self.d_y ** 2)
+            self.difference_x = self.go_x_fish - self.x_fish
+            self.difference_y = self.go_y_fish - self.y_fish
+            self.distance = math.sqrt(self.difference_x ** 2 + self.difference_y ** 2)
+
+            self.x_fish += self.difference_x / self.distance
+            self.y_fish += self.difference_y / self.distance
+
+            self.x_check = abs(self.difference_x)
+            if self.x_check <= 1:
+                self.x_fish = self.go_x_fish
+
+            if self.difference_x < 0:
+                self.change = -1
+            else:
+                self.change = 1
+
+
+        elif round(self.x_fish, 0) == round(self.go_x_fish, 0):
+
+            self.go_x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
+            self.go_y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
+
 
 
 def main():
