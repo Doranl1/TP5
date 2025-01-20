@@ -6,6 +6,7 @@ TP5
 
 import arcade
 import random
+import math
 
 YELLOW = (204, 153, 0)
 BLUE = (175, 199, 237)
@@ -46,6 +47,12 @@ class FishTank(arcade.Window):
         self.x_fish = random.randint(self.window_width - 275, self.window_width - 175)
         self.y_fish = random.randint(self.window_height - 175, self.window_height - 125)
 
+        self.go_x_fish = self.x_fish
+        self.go_y_fish = self.y_fish
+
+        self.d_x = 0
+        self.d_y = 0
+        self.distance = 0
 
     def on_draw(self):
 
@@ -99,6 +106,10 @@ class FishTank(arcade.Window):
         self.go_x_fish = random.randint(self.window_width - 275, self.window_width - 175)
         self.go_y_fish = random.randint(self.window_height - 175, self.window_height - 125)
 
+        if self.x_fish != self.go_x_fish and self.y_fish != self.go_y_fish:
+            self.d_x = self.go_x_fish - self.x_fish
+            self.d_y = self.go_y_fish - self.y_fish
+            self.distance = math.sqrt(self.d_x ** 2 + self.d_y ** 2)
 
 
 def main():
