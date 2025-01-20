@@ -46,17 +46,24 @@ class FishTank(arcade.Window):
 
         self.x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
         self.y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
-
         self.go_x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
         self.go_y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
-
         self.difference_x = 0
         self.difference_y = 0
         self.distance = 0
-
         self.x_check = 0
-
         self.change = 1
+
+        self.x_fish2 = random.randint(self.left_tank + 70, self.right_tank - 100)
+        self.y_fish2 = random.randint(self.bottom_tank + 40, self.top_tank - 50)
+        self.go_x_fish2 = random.randint(self.left_tank + 70, self.right_tank - 100)
+        self.go_y_fish2 = random.randint(self.bottom_tank + 40, self.top_tank - 50)
+        self.difference_x2 = 0
+        self.difference_y2 = 0
+        self.distance2 = 0
+        self.x_check2 = 0
+        self.change2 = 1
+
     def on_draw(self):
 
         arcade.set_background_color(arcade.color.WHITE)
@@ -96,6 +103,20 @@ class FishTank(arcade.Window):
 
         # Poisson
         arcade.draw_ellipse_filled(
+            self.x_fish2, self.y_fish2, 75, 45, arcade.color.GREEN
+        )
+        arcade.draw_circle_filled(
+            self.x_fish2 + 20 * self.change2, self.y_fish2 + 10, 3.5, arcade.color.BLACK
+        )
+        arcade.draw_triangle_filled(
+            self.x_fish2, self.y_fish2,
+            self.x_fish2 - 50 * self.change2,
+            self.y_fish2 + 30 * self.change2,
+            self.x_fish2 - 50 * self.change2, self.y_fish2 - 30 * self.change2,
+            YELLOW
+        )
+
+        arcade.draw_ellipse_filled(
             self.x_fish, self.y_fish, 75, 45, YELLOW
         )
         arcade.draw_circle_filled(
@@ -127,6 +148,33 @@ class FishTank(arcade.Window):
                 self.change = -1
             else:
                 self.change = 1
+
+
+        elif round(self.x_fish, 0) == round(self.go_x_fish, 0):
+
+            self.go_x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
+            self.go_y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
+
+        else:
+            pass
+
+
+        if self.x_fish2 != self.go_x_fish2 and self.y_fish2 != self.go_y_fish2:
+            self.difference_x2 = self.go_x_fish2 - self.x_fish2
+            self.difference_y2 = self.go_y_fish2 - self.y_fish2
+            self.distance2 = math.sqrt(self.difference_x2 ** 2 + self.difference_y2 ** 2)
+
+            self.x_fish2 += self.difference_x2 / self.distance2
+            self.y_fish2 += self.difference_y2 / self.distance2
+
+            self.x_check2 = abs(self.difference_x2)
+            if self.x_check2 <= 1:
+                self.x_fish2 = self.go_x_fish2
+
+            if self.difference_x2 < 0:
+                self.change2 = -1
+            else:
+                self.change2 = 1
 
 
         elif round(self.x_fish, 0) == round(self.go_x_fish, 0):
