@@ -15,7 +15,7 @@ GREEN = (115, 240, 130)
 
 class FishTank(arcade.Window):
     def __init__(self):
-        super().__init__(700, 450, "fish")
+        super().__init__(700, 450, "Poisson")
 
         self.window_width = 700
         self.window_height = 450
@@ -94,6 +94,7 @@ class FishTank(arcade.Window):
 
         arcade.draw_text("poisson", self.window_width / 2 - 50, self.window_height - 35, BLUE, 20)
 
+        # Poisson
         arcade.draw_ellipse_filled(
             self.x_fish, self.y_fish, 75, 45, YELLOW
         )
