@@ -7,6 +7,7 @@ TP5
 import arcade
 import random
 import math
+import time
 
 YELLOW = (204, 153, 0)
 YELLOW2 = (196, 186, 18)
@@ -54,6 +55,7 @@ class FishTank(arcade.Window):
         self.distance = 0
         self.x_check = 0
         self.change = 1
+        self.stay = 0
 
         self.x_fish2 = random.randint(self.left_tank + 70, self.right_tank - 100)
         self.y_fish2 = random.randint(self.bottom_tank + 40, self.top_tank - 50)
@@ -64,6 +66,7 @@ class FishTank(arcade.Window):
         self.distance2 = 0
         self.x_check2 = 0
         self.change2 = 1
+        self.stay2 = 0
 
     def on_draw(self):
 
@@ -130,6 +133,7 @@ class FishTank(arcade.Window):
             YELLOW
         )
 
+
     def on_update(self, delta_time: float):
 
         if self.x_fish != self.go_x_fish and self.y_fish != self.go_y_fish:
@@ -152,9 +156,10 @@ class FishTank(arcade.Window):
                 self.change = 1
 
         elif round(self.x_fish, 0) == round(self.go_x_fish, 0):
-
-            self.go_x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
-            self.go_y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
+            self.stay = random.randint(1, 60)
+            if self.stay == 1:
+                self.go_x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
+                self.go_y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
 
         else:
             pass
@@ -179,9 +184,17 @@ class FishTank(arcade.Window):
                 self.change2 = 1
 
         elif round(self.x_fish2, 0) == round(self.go_x_fish2, 0):
+            self.stay2 = random.randint(1, 60)
+            if self.stay2 == 1:
+                self.go_x_fish2 = random.randint(self.left_tank + 70, self.right_tank - 100)
+                self.go_y_fish2 = random.randint(self.bottom_tank + 40, self.top_tank - 50)
 
-            self.go_x_fish2 = random.randint(self.left_tank + 70, self.right_tank - 100)
-            self.go_y_fish2 = random.randint(self.bottom_tank + 40, self.top_tank - 50)
+    def on_mouse_press(self, x, y, button, modifiers):
+        if button == arcade.MOUSE_BUTTON_LEFT:
+            self.go_x_fish = x
+            self.go_y_fish = y
+            self.go_x_fish2 = x
+            self.go_y_fish2 = y
 
 
 def main():
