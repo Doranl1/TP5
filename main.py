@@ -9,6 +9,7 @@ import random
 import math
 
 YELLOW = (204, 153, 0)
+YELLOW2 = (196, 186, 18)
 BLUE = (175, 199, 237)
 GREEN = (115, 240, 130)
 
@@ -67,6 +68,7 @@ class FishTank(arcade.Window):
     def on_draw(self):
 
         arcade.set_background_color(arcade.color.WHITE)
+        self.clear()
 
         arcade.draw_lrbt_rectangle_filled(
             self.left_tank, self.right_tank, self.bottom_tank, self.top_tank, arcade.color.BLUEBERRY
@@ -99,21 +101,20 @@ class FishTank(arcade.Window):
             self.rock_point, arcade.color.BLACK
         )
 
-        arcade.draw_text("poisson", self.window_width / 2 - 50, self.window_height - 35, BLUE, 20)
+        arcade.draw_text("poisson", self.window_width / 2 - 50, self.window_height - 35, arcade.color.BLUE, 20)
 
         # Poisson
         arcade.draw_ellipse_filled(
-            self.x_fish2, self.y_fish2, 75, 45, arcade.color.GREEN
+            self.x_fish2, self.y_fish2, 75, 45, YELLOW2
         )
         arcade.draw_circle_filled(
             self.x_fish2 + 20 * self.change2, self.y_fish2 + 10, 3.5, arcade.color.BLACK
         )
         arcade.draw_triangle_filled(
             self.x_fish2, self.y_fish2,
-            self.x_fish2 - 50 * self.change2,
-            self.y_fish2 + 30 * self.change2,
+            self.x_fish2 - 50 * self.change2, self.y_fish2 + 30 * self.change2,
             self.x_fish2 - 50 * self.change2, self.y_fish2 - 30 * self.change2,
-            YELLOW
+            YELLOW2
         )
 
         arcade.draw_ellipse_filled(
@@ -124,8 +125,7 @@ class FishTank(arcade.Window):
         )
         arcade.draw_triangle_filled(
             self.x_fish, self.y_fish,
-            self.x_fish - 50 * self.change,
-            self.y_fish + 30 * self.change,
+            self.x_fish - 50 * self.change, self.y_fish + 30 * self.change,
             self.x_fish - 50 * self.change, self.y_fish - 30 * self.change,
             YELLOW
         )
@@ -133,6 +133,7 @@ class FishTank(arcade.Window):
     def on_update(self, delta_time: float):
 
         if self.x_fish != self.go_x_fish and self.y_fish != self.go_y_fish:
+
             self.difference_x = self.go_x_fish - self.x_fish
             self.difference_y = self.go_y_fish - self.y_fish
             self.distance = math.sqrt(self.difference_x ** 2 + self.difference_y ** 2)
@@ -142,13 +143,13 @@ class FishTank(arcade.Window):
 
             self.x_check = abs(self.difference_x)
             if self.x_check <= 1:
+
                 self.x_fish = self.go_x_fish
 
             if self.difference_x < 0:
                 self.change = -1
             else:
                 self.change = 1
-
 
         elif round(self.x_fish, 0) == round(self.go_x_fish, 0):
 
@@ -158,8 +159,8 @@ class FishTank(arcade.Window):
         else:
             pass
 
-
         if self.x_fish2 != self.go_x_fish2 and self.y_fish2 != self.go_y_fish2:
+
             self.difference_x2 = self.go_x_fish2 - self.x_fish2
             self.difference_y2 = self.go_y_fish2 - self.y_fish2
             self.distance2 = math.sqrt(self.difference_x2 ** 2 + self.difference_y2 ** 2)
@@ -169,6 +170,7 @@ class FishTank(arcade.Window):
 
             self.x_check2 = abs(self.difference_x2)
             if self.x_check2 <= 1:
+
                 self.x_fish2 = self.go_x_fish2
 
             if self.difference_x2 < 0:
@@ -176,12 +178,10 @@ class FishTank(arcade.Window):
             else:
                 self.change2 = 1
 
+        elif round(self.x_fish2, 0) == round(self.go_x_fish2, 0):
 
-        elif round(self.x_fish, 0) == round(self.go_x_fish, 0):
-
-            self.go_x_fish = random.randint(self.left_tank + 70, self.right_tank - 100)
-            self.go_y_fish = random.randint(self.bottom_tank + 40, self.top_tank - 50)
-
+            self.go_x_fish2 = random.randint(self.left_tank + 70, self.right_tank - 100)
+            self.go_y_fish2 = random.randint(self.bottom_tank + 40, self.top_tank - 50)
 
 
 def main():
